@@ -2,8 +2,14 @@
 TPC Terminal Port Crawler — static data: port database, service metadata, constants.
 """
 
-VERSION      = "1.3.0"
-HISTORY_FILE = "scan_history.log"
+import os
+from pathlib import Path
+
+VERSION = "1.3.0"
+
+_data_dir = Path.home() / ".tpc"
+_data_dir.mkdir(parents=True, exist_ok=True)
+HISTORY_FILE = str(_data_dir / "scan_history.log")
 
 known_ports = {
     7:     {"service": "Echo",                    "protocols": ["TCP", "UDP"]},
