@@ -33,8 +33,9 @@ from .screens import DisclaimerScreen, ExportScreen, AboutScreen
 
 
 class PortScannerApp(App):
-    TITLE    = f"TPC Terminal Port Crawler  v{VERSION}"
-    COMMANDS = set()
+    TITLE                   = f"TPC Terminal Port Crawler  v{VERSION}"
+    COMMANDS                = set()
+    ENABLE_COMMAND_PALETTE  = False
     BINDINGS = [
         Binding("ctrl+s", "start_scan",   "Scan",    priority=True),
         Binding("ctrl+b", "grab_banners", "Banners", priority=True),
