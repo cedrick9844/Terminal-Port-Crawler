@@ -2,6 +2,8 @@
 
 A terminal-based port crawler with threat analysis, banner grabbing, OS fingerprinting, and CVE references. Runs as a full TUI or entirely from the command line with flags.
 
+<img width="2879" height="1799" alt="Screenshot 2026-03-26 014148" src="https://github.com/user-attachments/assets/b29e2b5c-58af-49b0-a57a-7f35921910c0" />
+
 ## Install
 
 From source (recommended):
