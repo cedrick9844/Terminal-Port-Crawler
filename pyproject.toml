@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.scripts]
-tpc = "tpcscanner.scanner:main"
+tpc = "tpc.scanner:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["tpcscanner"]
+packages = ["tpc"]
