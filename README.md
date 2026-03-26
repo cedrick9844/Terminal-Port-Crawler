@@ -8,7 +8,7 @@ From source (recommended):
 
 ```bash
 git clone https://github.com/Andrew-most-likely/Terminal-Port-Crawler
-cd tpc-scanner
+cd Terminal-Port-Crawler
 pip install -e .
 ```
 
