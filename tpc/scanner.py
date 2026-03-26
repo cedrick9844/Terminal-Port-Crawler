@@ -670,7 +670,7 @@ class PortScannerApp(App):
         log.write("  [#30363d]│[/#30363d]                                                          [#30363d]│[/#30363d]")
         log.write("  [#30363d]│[/#30363d]   [#58a6ff]github.com/Andrew-most-likely[/#58a6ff]                          [#30363d]│[/#30363d]")
         log.write("  [#30363d]│[/#30363d]                                                          [#30363d]│[/#30363d]")
-        log.write("  [#30363d]│[/#30363d]   [#8b949e]TPC Terminal Port Crawler  ·  Python & Textual  ·  2026[/#8b949e]    [#30363d]│[/#30363d]")
+        log.write("  [#30363d]│[/#30363d]   [#8b949e]TPC Terminal Port Crawler  ·  Python & Textual     [/#8b949e]    [#30363d]│[/#30363d]")
         log.write("  [#30363d]│[/#30363d]                                                          [#30363d]│[/#30363d]")
         log.write("  [#30363d]└──────────────────────────────────────────────────────────┘[/#30363d]")
         log.write("")
