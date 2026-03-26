@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tpc"
+version = "1.3.0"
+description = "TPC Terminal Port Crawler — port scanning with threat analysis, banner grabbing, and OS fingerprinting"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = ["security", "port-scanner", "network", "tui", "terminal"]
+dependencies = [
+    "textual>=0.50.0",
+]
+
+[project.scripts]
+tpc = "tpcscanner.scanner:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["tpcscanner"]
