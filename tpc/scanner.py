@@ -100,6 +100,9 @@ class PortScannerApp(App):
     #slow-delay-row      { display: none; height: 3; margin: 0; }
     #slow-delay-row Label { height: 3; content-align: left middle; width: 10; color: #8b949e; }
     #slow-delay-row Input { width: 1fr; }
+    #thread-count-row        { height: 3; margin: 0; }
+    #thread-count-row Label  { height: 3; content-align: left middle; width: 10; color: #8b949e; }
+    #thread-count-row Input  { width: 1fr; }
 
     .btn-row { height: 3; margin: 0; }
     #scan-btn-row { margin-top: 1; }
@@ -215,6 +218,9 @@ class PortScannerApp(App):
 
                 yield Label("OPTIONS", classes="section-title")
                 yield Checkbox("Scan UDP ports", id="udp-check")
+                with Horizontal(id="thread-count-row"):
+                    yield Label("Threads:")
+                    yield Input("100", placeholder="threads", id="thread-count")
 
                 with Horizontal(classes="btn-row", id="scan-btn-row"):
                     yield Button("Scan", id="scan-btn")
@@ -366,6 +372,10 @@ class PortScannerApp(App):
             mode = "fast"
 
         scan_udp  = self.query_one("#udp-check", Checkbox).value
+        try:
+            thread_count = max(1, int(self.query_one("#thread-count", Input).value))
+        except ValueError:
+            thread_count = 100
 
         udp_port_count = len([
             p for p in range(self._start_port, self._end_port + 1)
@@ -380,7 +390,7 @@ class PortScannerApp(App):
         self.query_one("#export-btn").disabled = True
         self._scan_start = time.time()
         self._set_status(f"[cyan]Scanning {desc}...[/cyan]")
-        self._run_scan(targets, self._start_port, self._end_port, mode, scan_udp)
+        self._run_scan(targets, self._start_port, self._end_port, mode, scan_udp, thread_count)
 
     def action_grab_banners(self) -> None:
         if not self._results:
@@ -413,7 +423,7 @@ class PortScannerApp(App):
 
     @work(thread=True, exclusive=True)
     def _run_scan(self, targets: list, start_port: int, end_port: int,
-                  mode, scan_udp: bool = False) -> None:
+                  mode, scan_udp: bool = False, thread_count: int = 100) -> None:
         port_list  = list(range(start_port, end_port + 1))
         is_slow    = isinstance(mode, tuple) and mode[0] == "slow"
         port_count = end_port - start_port + 1
@@ -474,8 +484,14 @@ class PortScannerApp(App):
                     scan_port(port)
                     time.sleep(delay)
             else:
-                with ThreadPoolExecutor(max_workers=100) as ex:
-                    ex.map(scan_port, scan_list)
+                with ThreadPoolExecutor(max_workers=thread_count) as ex:
+                    futures = []
+                    for port in scan_list:
+                        if self._stop_flag:
+                            for f in futures:
+                                f.cancel()
+                            break
+                        futures.append(ex.submit(scan_port, port))
 
         if scan_udp and not self._stop_flag:
             udp_ports = [
