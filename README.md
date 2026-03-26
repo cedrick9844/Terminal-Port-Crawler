@@ -7,8 +7,8 @@ A terminal-based port crawler with threat analysis, banner grabbing, OS fingerpr
 From source (recommended):
 
 ```bash
-git clone https://github.com/Andrew-most-likely/tpc-scanner
-cd tpc-scanner
+git clone https://github.com/Andrew-most-likely/Terminal-Port-Crawler
+cd Terminal-Port-Crawler
 pip install -e .
 ```
 
