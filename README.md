@@ -4,15 +4,23 @@ A terminal-based port crawler with threat analysis, banner grabbing, OS fingerpr
 
 <img width="2879" height="1799" alt="Screenshot 2026-03-26 014148" src="https://github.com/user-attachments/assets/b29e2b5c-58af-49b0-a57a-7f35921910c0" />
 
+## Download
+
+**Pre-built Windows executable — no Python required:**
+
+Download `tpc.exe` from the [Releases](https://github.com/Andrew-most-likely/Terminal-Port-Crawler/releases) page and run it directly.
+
 ## Install
 
-From source (recommended):
+From source:
 
 ```bash
 git clone https://github.com/Andrew-most-likely/Terminal-Port-Crawler
 cd Terminal-Port-Crawler
 pip install -e .
 ```
+
+**Requirements:** Python 3.9+, pip 21.3+
 
 ## Usage
 
