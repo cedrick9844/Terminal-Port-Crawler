@@ -1,18 +1,25 @@
+<div align="center">
+
 # TPC — Terminal Port Crawler
 
-A terminal-based port crawler with threat analysis, banner grabbing, OS fingerprinting, and CVE references. Runs as a full TUI or entirely from the command line with flags.
+**Port scanning with threat analysis, banner grabbing, OS fingerprinting, and CVE references.**
+Runs as a full TUI or entirely from the command line.
+
+<br>
+
+[![Download](https://img.shields.io/badge/Download%20for%20Windows-tpc.exe-blue?style=for-the-badge&logo=windows)](https://github.com/Andrew-most-likely/Terminal-Port-Crawler/releases/latest)
+
+*No Python required — just download and run.*
+
+<br>
+
+</div>
 
 <img width="2879" height="1799" alt="Screenshot 2026-03-26 014148" src="https://github.com/user-attachments/assets/b29e2b5c-58af-49b0-a57a-7f35921910c0" />
 
-## Download
+---
 
-**Pre-built Windows executable — no Python required:**
-
-Download `tpc.exe` from the [Releases](https://github.com/Andrew-most-likely/Terminal-Port-Crawler/releases) page and run it directly.
-
-## Install
-
-From source:
+## Install from source
 
 ```bash
 git clone https://github.com/Andrew-most-likely/Terminal-Port-Crawler
@@ -21,6 +28,8 @@ pip install -e .
 ```
 
 **Requirements:** Python 3.9+, pip 21.3+
+
+---
 
 ## Usage
 
@@ -60,6 +69,8 @@ tpc -t 192.168.1.1 -b -e json            # banners + JSON export
 tpc --help                                # show all flags
 ```
 
+---
+
 ## Features
 
 - TCP port crawling across 70+ known service definitions
@@ -79,16 +90,20 @@ tpc --help                                # show all flags
 - Persistent crawl history log
 - Full CLI mode — no UI required
 
+---
+
 ## TUI Keybindings
 
-| Action         | Key    |
-|----------------|--------|
-| Start crawl    | Ctrl+S |
-| Grab banners   | Ctrl+B |
-| Export results | Ctrl+E |
-| New crawl      | Ctrl+N |
-| About          | F1     |
-| Quit           | Ctrl+Q |
+| Action         | Key      |
+|----------------|----------|
+| Start crawl    | Ctrl+S   |
+| Grab banners   | Ctrl+B   |
+| Export results | Ctrl+E   |
+| New crawl      | Ctrl+N   |
+| About          | F1       |
+| Quit           | Ctrl+Q   |
+
+---
 
 ## Target Formats
 
@@ -99,12 +114,9 @@ tpc --help                                # show all flags
 | CIDR subnet | `192.168.1.0/24`  |
 | Dash range  | `192.168.1.1-50`  |
 
+---
+
 ## Legal
 
 Only use this tool on systems you own or have **explicit written permission** to test.
 Unauthorized port crawling may be illegal under the CFAA, Computer Misuse Act, or equivalent laws in your jurisdiction.
-
-## Requirements
-
-- Python 3.9+
-- Linux / macOS / Windows
