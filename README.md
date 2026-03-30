@@ -1,6 +1,6 @@
 <div align="center">
 
-# TPC — Terminal Port Crawler
+# TPC - Terminal Port Crawler
 
 **Port scanning with threat analysis, banner grabbing, OS fingerprinting, and CVE references.**
 Runs as a full TUI or entirely from the command line.
@@ -9,7 +9,7 @@ Runs as a full TUI or entirely from the command line.
 
 [![Download](https://img.shields.io/badge/Download%20for%20Windows-tpc.exe-blue?style=for-the-badge&logo=windows)](https://github.com/Andrew-most-likely/Terminal-Port-Crawler/releases/latest)
 
-*No Python required — just download and run.*
+*No Python required - just download and run.*
 
 <br>
 
@@ -79,16 +79,16 @@ tpc --help                                # show all flags
 - Subnet crawling (CIDR notation: `192.168.1.0/24`)
 - IP range crawling (`192.168.1.1-50`)
 - Hostname resolution (forward and reverse DNS)
-- Full port range option (1–65535)
+- Full port range option (1-65535)
 - Banner grabbing for service enumeration
 - OS fingerprinting from open port patterns
-- Threat assessment — HIGH / MEDIUM / LOW risk ratings
+- Threat assessment - HIGH / MEDIUM / LOW risk ratings
 - CVE references for notable open ports
 - Export to TXT, CSV, JSON, or HTML
 - HTML export renders as a styled report
 - Exports saved to `exports/` folder
 - Persistent crawl history log
-- Full CLI mode — no UI required
+- Full CLI mode - no UI required
 
 ---
 
