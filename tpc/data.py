@@ -5,7 +5,7 @@ TPC Terminal Port Crawler — static data: port database, service metadata, cons
 import os
 from pathlib import Path
 
-VERSION = "1.3.0"
+VERSION = "1.4.0"
 
 _data_dir = Path.home() / ".tpc"
 _data_dir.mkdir(parents=True, exist_ok=True)
@@ -51,7 +51,7 @@ known_ports = {
     500:   {"service": "IPSec / ISAKMP / IKE",    "protocols": ["UDP"]},
     512:   {"service": "rexec",                   "protocols": ["TCP"]},
     513:   {"service": "rlogin",                  "protocols": ["TCP"]},
-    514:   {"service": "syslog",                  "protocols": ["UDP"]},
+    514:   {"service": "rsh/syslog",              "protocols": ["TCP", "UDP"]},
     515:   {"service": "LPD/LPR",                 "protocols": ["TCP"]},
     520:   {"service": "RIP",                     "protocols": ["UDP"]},
     548:   {"service": "AFP",                     "protocols": ["TCP"]},
@@ -67,13 +67,21 @@ known_ports = {
     990:   {"service": "FTPS",                    "protocols": ["TCP"]},
     993:   {"service": "IMAP over SSL",           "protocols": ["TCP"]},
     995:   {"service": "POP3 over SSL",           "protocols": ["TCP", "UDP"]},
+    2375:  {"service": "Docker API",              "protocols": ["TCP"]},
+    2376:  {"service": "Docker API (TLS)",        "protocols": ["TCP"]},
+    3000:  {"service": "Grafana",                 "protocols": ["TCP"]},
     3306:  {"service": "MySQL",                   "protocols": ["TCP"]},
     3389:  {"service": "RDP (Remote Desktop)",    "protocols": ["TCP", "UDP"]},
     5432:  {"service": "PostgreSQL",              "protocols": ["TCP"]},
+    5601:  {"service": "Kibana",                  "protocols": ["TCP"]},
     5900:  {"service": "VNC",                     "protocols": ["TCP"]},
     6379:  {"service": "Redis",                   "protocols": ["TCP"]},
+    6443:  {"service": "Kubernetes API",           "protocols": ["TCP"]},
     8080:  {"service": "HTTP Alternate",          "protocols": ["TCP"]},
     8443:  {"service": "HTTPS Alternate",         "protocols": ["TCP"]},
+    8888:  {"service": "Jupyter Notebook",        "protocols": ["TCP"]},
+    9090:  {"service": "Prometheus",             "protocols": ["TCP"]},
+    9200:  {"service": "Elasticsearch",          "protocols": ["TCP"]},
     27017: {"service": "MongoDB",                 "protocols": ["TCP"]},
 }
 
@@ -87,9 +95,10 @@ SERVICE_META = {
     "database": {"color": "yellow",  "label": "Database", "services": ["MySQL", "PostgreSQL", "MongoDB", "Redis"]},
     "remote":   {"color": "red",     "label": "Remote",   "services": ["RDP", "VNC", "Telnet", "rlogin", "rexec"]},
     "vmware":   {"color": "white",   "label": "VMware",   "services": ["VMware"]},
+    "devops":   {"color": "cyan",    "label": "DevOps",   "services": ["Docker", "Kubernetes", "Grafana", "Prometheus", "Jupyter", "Kibana", "Elasticsearch"]},
 }
 
-SSL_PORTS = {443, 465, 636, 993, 995, 990, 989, 8443}
+SSL_PORTS = {443, 465, 636, 993, 995, 990, 989, 2376, 8443}
 
 # Notable CVEs per port — shown in the Analysis tab
 PORT_CVES = {
@@ -108,5 +117,12 @@ PORT_CVES = {
     5900:  [("CVE-2015-5239",  "VNC integer overflow"), ("CVE-2019-15678", "TigerVNC heap overflow")],
     6379:  [("CVE-2022-0543",  "Redis Lua sandbox escape")],
     8080:  [("CVE-2021-41773", "Apache path traversal (alt port)")],
+    2375:  [("CVE-2019-5736",  "runc container escape via Docker API"), ("CVE-2020-15257", "containerd privilege escalation")],
+    3000:  [("CVE-2021-43798", "Grafana path traversal — arbitrary file read"), ("CVE-2021-27358", "Grafana unauthenticated SSRF")],
+    5601:  [("CVE-2019-7609",  "Kibana remote code execution via Timelion"), ("CVE-2019-7616", "Kibana XSS")],
+    6443:  [("CVE-2018-1002105", "Kubernetes API server privilege escalation"), ("CVE-2020-8558", "Kubernetes node local traffic exposure")],
+    8888:  [("CVE-2022-24758", "Jupyter Server auth bypass via crafted request")],
+    9090:  [("CVE-2019-3826",  "Prometheus stored XSS via query"), ("CVE-2022-46146", "Prometheus exporter auth bypass")],
+    9200:  [("CVE-2014-3120",  "Elasticsearch RCE via dynamic scripting"), ("CVE-2015-1427", "Elasticsearch Groovy sandbox escape")],
     27017: [("CVE-2015-7882",  "MongoDB auth bypass"), ("CVE-2013-2132", "MongoDB NULL pointer deref")],
 }

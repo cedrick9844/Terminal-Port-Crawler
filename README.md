@@ -73,7 +73,7 @@ tpc --help                                # show all flags
 
 ## Features
 
-- TCP port crawling across 70+ known service definitions
+- TCP port crawling across 75+ known service definitions
 - UDP crawling across all known UDP ports in the selected range
 - Fast, random order, and slow crawl modes
 - Subnet crawling (CIDR notation: `192.168.1.0/24`)

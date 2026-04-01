@@ -37,17 +37,27 @@ def grab_banner(ip: str, port: int) -> str:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(2)
         sock.connect((ip, port))
+        raw = b""
         try:
             raw = sock.recv(1024)
-            if not raw:
-                sock.send(b"HEAD / HTTP/1.0\r\n\r\n")
-                raw = sock.recv(1024)
         except Exception:
-            raw = b""
+            pass
+        if not raw:
+            try:
+                sock.send(b"HEAD / HTTP/1.0\r\nHost: " + ip.encode() + b"\r\n\r\n")
+                raw = sock.recv(1024)
+            except Exception:
+                pass
         sock.close()
         text = raw.decode("utf-8", errors="ignore").strip()
-        first_line = text.splitlines()[0].strip()[:80] if text else ""
-        return first_line or "no banner"
+        if not text:
+            return "no banner"
+        if text.startswith("HTTP/"):
+            for line in text.splitlines():
+                if line.lower().startswith("server:"):
+                    return line[7:].strip()[:80]
+            return text.splitlines()[0].strip()[:80]
+        return text.splitlines()[0].strip()[:80] or "no banner"
     except Exception:
         return "no banner"
 
@@ -71,21 +81,28 @@ def fingerprint_os(results: list) -> tuple:
 
 def get_threat_findings(results: list) -> tuple:
     HIGH = {
-        23:    "Telnet — credentials sent in plaintext",
         21:    "FTP — credentials sent in plaintext",
+        23:    "Telnet — credentials sent in plaintext",
         512:   "rexec — unauthenticated remote execution",
         513:   "rlogin — unencrypted remote login",
-        514:   "rsh — remote shell, no authentication",
+        514:   "rsh (TCP) — remote shell with no authentication",
+        2375:  "Docker API — unauthenticated access gives full container control",
         3389:  "RDP — brute-force and BlueKeep risk",
         5900:  "VNC — often misconfigured, no auth",
+        8888:  "Jupyter Notebook — remote code execution, often no auth required",
     }
     MEDIUM = {
-        445:   "SMB — EternalBlue / WannaCry vector",
         135:   "RPC — Windows privilege escalation path",
         139:   "NetBIOS — information disclosure risk",
         161:   "SNMP — exposes device config if default community string",
+        445:   "SMB — EternalBlue / WannaCry vector",
+        3000:  "Grafana — dashboard, often default admin/admin credentials",
         3306:  "MySQL — database exposed to network",
         5432:  "PostgreSQL — database exposed to network",
+        5601:  "Kibana — may expose Elasticsearch data and admin interface",
+        6443:  "Kubernetes API — cluster control plane, check for anonymous access",
+        9090:  "Prometheus — metrics endpoint may expose internal infrastructure data",
+        9200:  "Elasticsearch — often no authentication, full data exposure",
         27017: "MongoDB — often runs without auth by default",
         6379:  "Redis — often runs without auth by default",
     }
@@ -218,7 +235,7 @@ def _export_html(filename, ip, hostname, os_label, elapsed,
             f"<td>{banner_cell}</td>"
             f"</tr>\n"
         )
-    html = f"""<!DOCTYPE html>
+    content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -259,4 +276,4 @@ def _export_html(filename, ip, hostname, os_label, elapsed,
 </body>
 </html>"""
     with open(filename, "w", encoding="utf-8") as f:
-        f.write(html)
+        f.write(content)

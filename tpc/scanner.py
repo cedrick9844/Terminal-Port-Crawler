@@ -1,5 +1,5 @@
 """
-TPC Terminal Port Crawler v1.3.0 — entry point (TUI + CLI).
+TPC Terminal Port Crawler v1.4.0 — entry point (TUI + CLI).
 """
 
 import argparse
