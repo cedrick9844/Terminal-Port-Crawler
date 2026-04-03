@@ -1,6 +1,6 @@
-# Learn TPC — Terminal Port Crawler
+# Learn TPC - Terminal Port Crawler
 
-A practical guide to understanding how TPC works under the hood — for contributors, security students, and curious developers.
+A practical guide to understanding how TPC works under the hood - for contributors, security students, and curious developers.
 
 ---
 
@@ -23,7 +23,7 @@ tpc/
 ```
 
 **External dependencies:**
-- [`textual`](https://github.com/Textualize/textual) — powers the TUI (widgets, layout, keybindings)
+- [`textual`](https://github.com/Textualize/textual) - powers the TUI (widgets, layout, keybindings)
 - Standard library only for scanning: `socket`, `threading`, `concurrent.futures`, `ipaddress`
 
 ---
@@ -44,10 +44,10 @@ In `fast` and `random` modes, a `ThreadPoolExecutor` runs up to 100 workers in p
 
 ### UDP Scanning
 
-UDP is connectionless — you cannot do a TCP-style connect. TPC sends 8 null bytes and interprets the response:
+UDP is connectionless - you cannot do a TCP-style connect. TPC sends 8 null bytes and interprets the response:
 
 - Response received → **open**
-- Timeout → **open/filtered** (follows nmap convention — UDP timeouts are ambiguous)
+- Timeout → **open/filtered** (follows nmap convention - UDP timeouts are ambiguous)
 - `ConnectionRefusedError` (ICMP port unreachable) → **closed**
 
 Only known UDP ports within the selected range are checked (not every port 1–65535).
@@ -69,7 +69,7 @@ TPC resolves targets before scanning:
 
 All port knowledge lives in `data.py`. This is where you add new ports, categories, or threat data.
 
-**TCP_PORTS** — maps port numbers to `(service_name, category)`:
+**TCP_PORTS** - maps port numbers to `(service_name, category)`:
 
 ```python
 TCP_PORTS = {
@@ -80,9 +80,9 @@ TCP_PORTS = {
 }
 ```
 
-**UDP_PORTS** — same structure, for known UDP services.
+**UDP_PORTS** - same structure, for known UDP services.
 
-**THREAT_PORTS** — maps port numbers to risk level strings:
+**THREAT_PORTS** - maps port numbers to risk level strings:
 
 ```python
 THREAT_PORTS = {
@@ -92,13 +92,13 @@ THREAT_PORTS = {
 }
 ```
 
-**CVE_MAP** — maps port numbers to a list of `(CVE-ID, description)` tuples.
+**CVE_MAP** - maps port numbers to a list of `(CVE-ID, description)` tuples.
 
 ---
 
 ## OS Fingerprinting (`utils.py`)
 
-TPC guesses the OS from which ports are open — no packet crafting, just pattern matching:
+TPC guesses the OS from which ports are open - no packet crafting, just pattern matching:
 
 | Open ports | OS guess |
 |-----------|----------|
@@ -109,7 +109,7 @@ TPC guesses the OS from which ports are open — no packet crafting, just patter
 | 22 (no 135/445/139) | Linux / Unix |
 | Anything else | Unknown |
 
-This is intentionally simple — it's pattern matching, not active fingerprinting like `nmap -O`.
+This is intentionally simple - it's pattern matching, not active fingerprinting like `nmap -O`.
 
 ---
 
@@ -154,17 +154,17 @@ Exports land in `exports/` (auto-created). Filename: `scan_<IP>_<YYYYMMDD_HHMMSS
 
 The TUI is built with [Textual](https://textual.textualize.io/). Key concepts:
 
-- **App** — the root Textual app class, handles keybindings and screen management
-- **Screens** — the disclaimer modal, the about modal, the main scan screen
-- **Widgets** — sidebar inputs (target, port range, mode, options), the results DataTable, Analysis log, History tab
-- **Workers** — scanning runs in a background thread via Textual's `run_in_thread` / `call_from_thread` pattern so the UI stays responsive
-- **Messages** — workers post messages back to the UI to update the results table and stats live
+- **App** - the root Textual app class, handles keybindings and screen management
+- **Screens** - the disclaimer modal, the about modal, the main scan screen
+- **Widgets** - sidebar inputs (target, port range, mode, options), the results DataTable, Analysis log, History tab
+- **Workers** - scanning runs in a background thread via Textual's `run_in_thread` / `call_from_thread` pattern so the UI stays responsive
+- **Messages** - workers post messages back to the UI to update the results table and stats live
 
 ---
 
 ## Scan History
 
-Every completed scan is appended to `~/.tpc/scan_history.log`. The format is plain text — one block per scan. The History tab in the TUI reads this file on load.
+Every completed scan is appended to `~/.tpc/scan_history.log`. The format is plain text - one block per scan. The History tab in the TUI reads this file on load.
 
 ---
 
@@ -188,11 +188,11 @@ Every completed scan is appended to `~/.tpc/scan_history.log`. The format is pla
 
 ## Key Concepts for Contributors
 
-- **No external scan libraries** — all scanning is raw `socket` calls. TPC does not use nmap, scapy, or similar.
-- **Threading model** — `concurrent.futures.ThreadPoolExecutor` for fast/random modes; sequential loop for slow mode.
-- **TUI/CLI split** — `scanner.py:main()` checks for `-t` flag to decide CLI vs TUI. CLI prints results to stdout; TUI uses Textual widgets.
-- **Data separation** — all port/threat/CVE knowledge is in `data.py`, keeping scanner logic clean.
-- **No root required** — TCP connect scanning works without elevated privileges. UDP scanning may require root/admin on some systems.
+- **No external scan libraries** - all scanning is raw `socket` calls. TPC does not use nmap, scapy, or similar.
+- **Threading model** - `concurrent.futures.ThreadPoolExecutor` for fast/random modes; sequential loop for slow mode.
+- **TUI/CLI split** - `scanner.py:main()` checks for `-t` flag to decide CLI vs TUI. CLI prints results to stdout; TUI uses Textual widgets.
+- **Data separation** - all port/threat/CVE knowledge is in `data.py`, keeping scanner logic clean.
+- **No root required** - TCP connect scanning works without elevated privileges. UDP scanning may require root/admin on some systems.
 
 ---
 
