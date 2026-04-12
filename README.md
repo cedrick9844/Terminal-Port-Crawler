@@ -120,3 +120,5 @@ tpc --help                                # show all flags
 
 Only use this tool on systems you own or have **explicit written permission** to test.
 Unauthorized port crawling may be illegal under the CFAA, Computer Misuse Act, or equivalent laws in your jurisdiction.
+
+have fun 😊 
