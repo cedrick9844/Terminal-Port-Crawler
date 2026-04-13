@@ -107,8 +107,12 @@ def get_threat_findings(results: list) -> tuple:
         6379:  "Redis — often runs without auth by default",
     }
     high, medium = [], []
+    seen = set()
     for port_str, _, _, _ in results:
         port = int(port_str)
+        if port in seen:
+            continue
+        seen.add(port)
         if port in HIGH:
             high.append((port, HIGH[port]))
         elif port in MEDIUM:

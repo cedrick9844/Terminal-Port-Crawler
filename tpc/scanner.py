@@ -641,12 +641,13 @@ class PortScannerApp(App):
         if not high and not medium:
             log.write("\n[#3fb950]No high-risk services detected.[/#3fb950]")
 
-        other_cves = [
-            (port_str, PORT_CVES[int(port_str)])
-            for port_str, _, _, _ in self._results
-            if int(port_str) in PORT_CVES
-            and int(port_str) not in {p for p, _ in high + medium}
-        ]
+        _seen_ports: set = set()
+        other_cves = []
+        for port_str, _, _, _ in self._results:
+            p = int(port_str)
+            if p in PORT_CVES and p not in {q for q, _ in high + medium} and p not in _seen_ports:
+                _seen_ports.add(p)
+                other_cves.append((port_str, PORT_CVES[p]))
         if other_cves:
             log.write("\n[bold #58a6ff]Notable CVEs (other open ports)[/bold #58a6ff]")
             for port_str, cves in other_cves:
